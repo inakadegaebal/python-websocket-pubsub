@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>mypage</title>
+</head>
+<body onload="connect()">
+    <div id="newMark">なし</div>
+
+    <script type="text/javascript">
+        var webSocket;
+        var newMark = document.getElementById("newMark");
+
+        function connect() {
+            webSocket = new WebSocket("ws://localhost:6789");
+            
+            webSocket.onopen = function(message) {
+                console.log("Server connect... OK");
+            };
+
+            webSocket.onerror = function(message) {
+                console.log("error..." + message);
+            };
+
+            webSocket.onmessage = function(message) {
+                newMark.innerHTML = message.data;
+            };
+        }
+  </script>
+</body>
+</html>
